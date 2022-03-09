@@ -62,11 +62,10 @@ def getCSRF():
     return formKey
 
 def make_checkout_request(session, profile, headers):
-    print("Making checkout request")
+    print("[+] Navigating to checkout page")
     checkout_page_content = session.get("https://www.supremenewyork.com/mobile/#checkout", headers=headers).text
     cookie_sub = session.cookies.get_dict()["hnkdtrace"]
     checkout_params = get_params(checkout_page_content, profile, cookie_sub)
-    print("[+] Got Parameters")
     if not checkout_params:
         sys.exit("Error with parsing checkout parameters")
     return checkout_params
@@ -75,7 +74,7 @@ def send_checkout_request(session, profile, headers):
     checkout_url = "https://www.supremenewyork.com/checkout.json"
     checkout_params = make_checkout_request(session, profile, headers)
     #checkout_request = session.post(checkout_url, headers=headers, data=checkout_params)
-    print("[+] Send checkout request")
+    print("[+] Sent checkout request")
     print(time.perf_counter())
     #if checkout_request.status_code == 200:
     #    print("[+] Success!")

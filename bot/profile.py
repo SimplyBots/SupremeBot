@@ -19,7 +19,6 @@ def add_profile():
     profile["cvv"] = "123"
 
     profiles.append(profile)
-    print(profiles)
 
     with open("data.json", "w") as f:
         json.dump(profiles, f)

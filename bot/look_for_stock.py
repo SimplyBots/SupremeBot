@@ -3,18 +3,7 @@ from colorama import init, Fore
 import time
 import requests
 
-GLOBAL_IN_STOCK_SIZE = "N/A"
-GLOBAL_IN_STOCK_SIZE_ID = "84396"
-GLOBAL_IN_STOCK_COLOUR = "Purple"
-GLOBAL_IN_STOCK_NAME = "Supreme®/Nalgene® Characters 32 oz. Bottle"
-GLOBAL_IN_STOCK_CATEGORY = "Accessories"
-
-GLOBAL_OOS_SIZE = "US 9 / UK 8"
-GLOBAL_OOS_COLOUR = "Black"
-GLOBAL_OOS_ITEM = "Supreme®/Nike® SB Dunk High"
-GLOBAL_OOS_CATEGORY = "Shoes"
-
-def get_stock():
+def get_stock(item_category, item_name, item_colour, item_size):
     init()
     headers = {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/80.0.3987.95 Mobile/15E148 Safari/604.1",
@@ -35,41 +24,45 @@ def get_stock():
     session = requests.Session()
     response = requests.get(url, headers=headers, proxies=proxies)
     all_products = response.json()
-    get_item_id(session, all_products, headers)
- 
-def get_item_id(session, all_products, headers):
-    for product in all_products["products_and_categories"][GLOBAL_IN_STOCK_CATEGORY]:
-        productName = product["name"]
-        if(productName == GLOBAL_IN_STOCK_NAME):
+
+    # Gets the item id
+    for product in all_products["products_and_categories"][item_category]:
+       # print(product["name"], item_name)
+       # print(type(product["name"]), type(item_name))
+        print(product["name"], item_name)
+        if(product["name"] == item_name):
             id = product["id"]
-            check_stock(session, id, headers)
+            check_stock(session, id, headers, item_colour, item_size)
             time.sleep(1)
             return
         else:
             print(Fore.CYAN + "[+] Searching for item")
+    
             
-def check_stock(session, id, headers):
+def check_stock(session, id, headers, item_colour, item_size):
     print(Fore.YELLOW + "[+] Checking stock")
     item_url = f"https://www.supremenewyork.com/shop/{id}.json"
     response = session.get(item_url, headers=headers)
     item_variant = response.json()
-    
+
     colours = item_variant["styles"]
     for colour in colours:
         style_id = colour["id"]
         chk = colour["chk"]
         productColour = colour["name"]
+        print(productColour)
 
         # Checks for the product colour
-        if(productColour == GLOBAL_IN_STOCK_COLOUR):
+        if(productColour == item_colour):
             item_inventory = colour["sizes"]
             for product_details in item_inventory:
-                size = product_details["name"]
+                productSize = product_details["name"]
                 stock = product_details["stock_level"]
-                if(size == GLOBAL_IN_STOCK_SIZE):
+                productId = product_details["id"]
+                if(productSize == item_size):
                     if(stock > 0):
                         print(Fore.GREEN + "[+] Found requested item with parameters given")
-                        add_to_cart(session, id, GLOBAL_IN_STOCK_SIZE_ID, style_id, chk)
+                        add_to_cart(session, id, productId, style_id, chk)
                         return
                     else:
                         print(Fore.RED + "[+] Out of stock")
