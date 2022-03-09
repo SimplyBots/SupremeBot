@@ -1,11 +1,8 @@
-from subprocess import check_output
 import time
 import requests
 import sys
 from bot.get_params import get_params
 from bs4 import BeautifulSoup as bs
-
-SUCCESS = False
 
 def add_to_cart(session, item_id, size_id, style_id, check):
     headers = {
@@ -50,9 +47,6 @@ def add_to_cart(session, item_id, size_id, style_id, check):
     print("[+] Added to cart")
     if auto_response.status_code == 200:
         send_checkout_request(session, payload, headers)
-    #else:
-    #    print("[+] Failed to add to checkout")
-    #    SUCCESS = False
 
 def getCSRF():
     response = requests.get("https://www.supremenewyork.com/shop")
@@ -103,11 +97,11 @@ def display_order_status(session, checkout_request):
     checkout_request.text
     print(checkout_request.text)
     #checkout_response = checkout_request.json()
-#
+
     #status = checkout_response["slug"]
     #while True:
     #    status = get_order_status(session, status)
-#
+
     #    if status == "queued":
     #        print("ORDER QUEUED")
     #    elif status == "paid":
