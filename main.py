@@ -1,11 +1,11 @@
 import os.path
 import settings
-
+import json
 from ui.core import Core
 from bot.main import SupremeBot
 from bot.look_for_stock import get_stock
 from authentification import getHardwareID
-from seleniumMode.entry import openSupreme
+from multiprocessing.dummy import Pool as ThreadPool
 
 def main():
     """
@@ -25,13 +25,27 @@ def main():
     Michael_hwid = "032E02B4-0499-0583-5006-180700080009" # Same as comment above
     
     if (getHardwareID() == Aidan_hwid or getHardwareID() == Michael_hwid):
-        coreUIPage.mainloop()
-        # openSupreme() Commenting This out for now as its breaking my UI stuff
-
-        #get_stock() THIS NEEDS PUTTING BACK IN
+        #coreUIPage.mainloop()
+        loadTasks()
     else:
         print('Error')
         coreUIPage.errorMessage()
+
+def loadTasks():
+    pool1 = ThreadPool(4)
+
+    tasksCreated = []
+    tasks = open("data/tasks.json", encoding='utf-8')
+    data = json.load(tasks)
+    for item in data["tasks"]:
+        task = [item["item_category"], item["item_name"], item["colour"], item["size"]]
+        tasksCreated.append(task)
+    tasks.close()
+
+    pool1.starmap(get_stock, tasksCreated)
+
+    pool1.close()
+    pool1.join()
 
 def loadUserData(file_path):
     if not os.path.exists(file_path) or not os.path.isfile(file_path):

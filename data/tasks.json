@@ -1,1 +1,6 @@
-{"item_name":"Digital Flag Sweater","quantity":"1","size":"Medium","colour":"Black","item_category":"Tops/Sweaters", "profile_name":"Main"}
+{
+    "tasks": [
+        {"item_name":"Supreme®/Nalgene® Characters 32 oz. Bottle", "size":"N/A","colour":"Purple","item_category":"Accessories", "profile_name":"Main"},
+        {"item_name":"Deer Tee", "size":"Medium","colour":"Light Pine","item_category":"T-Shirts", "profile_name":"Main"}
+    ]
+}
