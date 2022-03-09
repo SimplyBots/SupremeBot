@@ -27,42 +27,36 @@ def get_stock(item_category, item_name, item_colour, item_size):
 
     # Gets the item id
     for product in all_products["products_and_categories"][item_category]:
-       # print(product["name"], item_name)
-       # print(type(product["name"]), type(item_name))
-        print(product["name"], item_name)
         if(product["name"] == item_name):
             id = product["id"]
             check_stock(session, id, headers, item_colour, item_size)
             time.sleep(1)
             return
-        else:
-            print(Fore.CYAN + "[+] Searching for item")
     
             
 def check_stock(session, id, headers, item_colour, item_size):
-    print(Fore.YELLOW + "[+] Checking stock")
+    print(Fore.YELLOW + "[+] Item found! Checking stock")
     item_url = f"https://www.supremenewyork.com/shop/{id}.json"
     response = session.get(item_url, headers=headers)
     item_variant = response.json()
 
     colours = item_variant["styles"]
     for colour in colours:
-        style_id = colour["id"]
-        chk = colour["chk"]
-        productColour = colour["name"]
-        print(productColour)
+        style_id       = colour["id"]
+        check          = colour["chk"]
+        product_colour = colour["name"]
 
         # Checks for the product colour
-        if(productColour == item_colour):
+        if(product_colour == item_colour):
             item_inventory = colour["sizes"]
             for product_details in item_inventory:
-                productSize = product_details["name"]
-                stock = product_details["stock_level"]
-                productId = product_details["id"]
-                if(productSize == item_size):
+                product_size = product_details["name"]
+                stock        = product_details["stock_level"]
+                product_id   = product_details["id"]
+                if(product_size == item_size):
                     if(stock > 0):
-                        print(Fore.GREEN + "[+] Found requested item with parameters given")
-                        add_to_cart(session, id, productId, style_id, chk)
+                        print(Fore.GREEN + "[+] Item in stock")
+                        add_to_cart(session, id, product_id, style_id, check)
                         return
                     else:
                         print(Fore.RED + "[+] Out of stock")

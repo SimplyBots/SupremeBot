@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup as bs
 
 SUCCESS = False
 
-def add_to_cart(session, item_id, size_id, style_id, chk):
+def add_to_cart(session, item_id, size_id, style_id, check):
     headers = {
         "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/80.0.3987.95 Mobile/15E148 Safari/604.1",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
@@ -24,7 +24,7 @@ def add_to_cart(session, item_id, size_id, style_id, chk):
         "size" : size_id,
         "style": style_id,
         "qty"  : "1",
-        "chk"  : chk,
+        "chk"  : check,
         "authenticity_token" : getCSRF()
     }
 
@@ -57,8 +57,8 @@ def add_to_cart(session, item_id, size_id, style_id, chk):
 def getCSRF():
     response = requests.get("https://www.supremenewyork.com/shop")
     htmlSoup = bs(response.text, 'html.parser')
-    script = htmlSoup.find('meta', {'name':'csrf-token'})
-    formKey = script.get('content')
+    script   = htmlSoup.find('meta', {'name':'csrf-token'})
+    formKey  = script.get('content')
     return formKey
 
 def make_checkout_request(session, profile, headers):
