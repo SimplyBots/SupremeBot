@@ -3,19 +3,9 @@ import requests
 import sys
 from bot.get_params import get_params
 from bs4 import BeautifulSoup as bs
+from bot.profileLoader import inject_data, inject_header
 
 def add_to_cart(session, item_id, size_id, style_id, check):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/80.0.3987.95 Mobile/15E148 Safari/604.1",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Accept-Encoding": "gzip, deflate, br",
-        "DNT": "1",
-        "Connection": "close",
-        "Pragma": "no-cache",
-        "Cache-Control": "no-cache",
-        "TE": "Trailers"
-    }
 
     data = {
         "size" : size_id,
@@ -26,27 +16,10 @@ def add_to_cart(session, item_id, size_id, style_id, check):
     }
 
     auto_checkout_url = f"https://www.supremenewyork.com/shop/{item_id}/atc.json"
-
-    payload = {
-        "name":"Test User",
-        "email":"bluerewind1@protonmail.com",
-        "address":"1 Test Street",
-        "address1":"",
-        "country":"GB",
-        "tel":"07508226496",
-        "city":"Sunderland",
-        "zip":"SR1 1JE",
-        "cardtype":"visa",
-        "cardnumber":"4929000000006",
-        "exp_month":"04",
-        "exp_year":"2023",
-        "cvv":"123"
-    }
-
-    auto_response = session.post(auto_checkout_url, headers=headers, data=data)
+    auto_response = session.post(auto_checkout_url, headers=inject_header(), data=data)
     print("[+] Added to cart")
     if auto_response.status_code == 200:
-        send_checkout_request(session, payload, headers)
+        send_checkout_request(session, inject_data(), inject_header())
 
 def getCSRF():
     response = requests.get("https://www.supremenewyork.com/shop")
