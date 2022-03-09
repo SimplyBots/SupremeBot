@@ -2,7 +2,6 @@ import os.path
 import settings
 import json
 from ui.core import Core
-from bot.main import SupremeBot
 from bot.look_for_stock import get_stock
 from authentification import getHardwareID
 from multiprocessing.dummy import Pool as ThreadPool

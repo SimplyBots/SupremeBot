@@ -30,8 +30,6 @@ def get_stock(item_category, item_name, item_colour, item_size):
         if(product["name"] == item_name):
             id = product["id"]
             check_stock(session, id, headers, item_colour, item_size)
-            time.sleep(1)
-            return
     
             
 def check_stock(session, id, headers, item_colour, item_size):
