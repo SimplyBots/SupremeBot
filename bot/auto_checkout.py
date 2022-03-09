@@ -28,14 +28,14 @@ def add_to_cart(session, item_id, size_id, style_id, check):
     auto_checkout_url = f"https://www.supremenewyork.com/shop/{item_id}/atc.json"
 
     payload = {
-        "name":"Aidan Salsadoun",
+        "name":"Test User",
         "email":"bluerewind1@protonmail.com",
-        "address":"4 AboveAShop",
+        "address":"1 Test Street",
         "address1":"",
         "country":"GB",
         "tel":"07508226496",
         "city":"Sunderland",
-        "zip":"SR5 1JE",
+        "zip":"SR1 1JE",
         "cardtype":"visa",
         "cardnumber":"4929000000006",
         "exp_month":"04",
