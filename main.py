@@ -28,7 +28,7 @@ def main():
         coreUIPage.mainloop()
         # openSupreme() Commenting This out for now as its breaking my UI stuff
 
-        #get_stock() THIS NEEDS PUTTING BACK IN
+        # get_stock()
     else:
         print('Error')
         coreUIPage.errorMessage()

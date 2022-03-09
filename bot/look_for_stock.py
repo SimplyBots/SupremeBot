@@ -69,7 +69,7 @@ def check_stock(session, id, headers):
                 if(size == GLOBAL_IN_STOCK_SIZE):
                     if(stock > 0):
                         print(Fore.GREEN + "[+] Found requested item with parameters given")
-                        add_to_cart(session, id, GLOBAL_IN_STOCK_SIZE_ID, style_id, chk)
+                        # add_to_cart(session, id, GLOBAL_IN_STOCK_SIZE_ID, style_id, chk)
                         return
                     else:
                         print(Fore.RED + "[+] Out of stock")

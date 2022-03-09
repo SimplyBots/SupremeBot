@@ -1,8 +1,11 @@
-from operator import le
 import tkinter as tk
-import tkinter.messagebox as mb 
+import tkinter.messagebox as mb
+
 import settings
+
 from ui.profile import Profile
+from ui.add_task import AddTask
+from ui.show_tasks import ShowTasks
 
 class Core(tk.Tk):
     def __init__(self):
@@ -11,13 +14,13 @@ class Core(tk.Tk):
         # --------------------------------------
         self.initialiseView()
         self.setUpHeader()
-
-        if len(settings.userProfilesList) <= 0: self.setUpProfileButton()
-        if len(settings.userTasksList) <= 0: self.setUpTaskButton()
+        self.setUpProfileButton()
+        self.setUpAddTaskButton()
+        if len(settings.userTasksList) > 0: self.setUpViewTaskButton()
 
     def initialiseView(self):
         width = 600
-        height = 300
+        height = 200
 
         screenWidth = self.winfo_screenwidth()
         screenHeight = self.winfo_screenheight()
@@ -25,7 +28,7 @@ class Core(tk.Tk):
         xPos = int((screenWidth / 2) - (width / 2))
         yPos = int((screenHeight / 4) - (height / 4))
 
-        self.title('A Simple Supreme Bot')
+        self.title('SimplyBots - Supreme Bot')
 
         image_url = settings.setWindowIcon()
 
@@ -40,7 +43,7 @@ class Core(tk.Tk):
         self.configure(background='white')
 
     def setUpHeader(self):
-        main_header = tk.Label(self, text='A Simple Supreme Bot', background='#e03533', foreground='white')
+        main_header = tk.Label(self, text='SimplyBots - Supreme Bot', background='#e03533', foreground='white', anchor='center')
         main_header.grid(row=1, sticky="w")
         main_header.place(relx=0.5, rely=0.05, anchor='center')
         main_header.configure(font=("Arial", 16), width=600)
@@ -48,20 +51,35 @@ class Core(tk.Tk):
     def setUpProfileButton(self):
         loadProfileButton = tk.Button(self, text="Load Profile Data", background='#e03533', foreground='white', command=self.showProfilePage)
         loadProfileButton.grid(columnspan=2, sticky='w')
-        loadProfileButton.place(relx=0.25, rely=0.65, anchor='center')
+        loadProfileButton.place(relx=0.25, rely=0.75, anchor='center')
         loadProfileButton.config(font=("Arial", 12), height=2, width=20)
 
-    def setUpTaskButton(self):
-        loadTaskButton = tk.Button(self, text="Load Task Data", background='#e03533', foreground='white', command=self.showTaskPage)
+    def setUpAddTaskButton(self):
+        loadTaskButton = tk.Button(self, text="Load Task Data", background='#e03533', foreground='white', command=self.showAddTaskPage)
         loadTaskButton.grid(columnspan=2, sticky='w')
-        loadTaskButton.place(relx=0.75, rely=0.65, anchor='center')
+        loadTaskButton.place(relx=0.75, rely=0.75, anchor='center')
         loadTaskButton.config(font=("Arial", 12), height=2, width=20)
 
+    def setUpViewTaskButton(self):
+        viewTasksButton = tk.Button(self, text="View Tasks", background='#e03533', foreground='white', command=self.showTasksPage)
+        viewTasksButton.grid(columnspan=2, sticky='w')
+        viewTasksButton.place(relx=0.50, rely=0.35, anchor='center')
+        viewTasksButton.config(font=("Arial", 12), height=2, width=20)
+
     def showProfilePage(self):
-        Profile(self)
+        self.add_profile_page = Profile(self)
     
-    def showTaskPage(self):
-        print('Show Task Page')
+    def showAddTaskPage(self):
+        if len(settings.userTasksList) >= 1:
+            mb.showerror(title='Cant Show Add Task Page', message='You can only make 1 task, please delete the task before trying to make a new one')
+        else:
+            self.add_task_page = AddTask(self)
+    
+    def showTasksPage(self):
+        if len(settings.userTasksList) > 0:
+            self.show_tasks_page = ShowTasks(self)
+        else:
+            mb.showerror(title='Cant Show Tasks Page', message='There are no tasks available, please create a new task')
 
     def errorMessage(self):
         mb.showerror("Supreme Bot", "Incorrect Hardware ID sorry")

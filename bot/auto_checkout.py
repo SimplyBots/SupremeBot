@@ -47,9 +47,9 @@ def add_to_cart(session, item_id, size_id, style_id, chk):
     }
 
     auto_response = session.post(auto_checkout_url, headers=headers, data=data)
-    print("[+] Added to cart")
     if auto_response.status_code == 200:
-        send_checkout_request(session, payload, headers)
+        print("[+] Added to cart")
+        # send_checkout_request(session, payload, headers)
     #else:
     #    print("[+] Failed to add to checkout")
     #    SUCCESS = False
