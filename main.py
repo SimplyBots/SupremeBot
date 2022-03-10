@@ -4,6 +4,8 @@ import json
 from ui.core import Core
 from bot.look_for_stock import get_stock
 from authentification import getHardwareID
+from seleniumMode.entry import openSupreme
+from time import perf_counter, sleep
 from multiprocessing.dummy import Pool as ThreadPool
 
 def main():
