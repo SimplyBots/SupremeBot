@@ -1,7 +1,6 @@
 import re
 from bs4 import BeautifulSoup as bs
 
-
 def sanitize_value(value):
     regex = re.compile('[^a-zA-Z]')
     return regex.sub("", value).lower().strip()
@@ -44,7 +43,6 @@ def assign_custom_values(checkout_data, profile_data, custom_values):
 
 def get_default_values(checkout_data, profile_data, default_values, cookie_sub):
     for default_value in default_values:
-        
         placeholder = default_value.get("placeholder")
         name = default_value.get("name")
 
@@ -111,7 +109,7 @@ def check_data(checkout_data, profile_data):
     return True
 
 
-def get_params(page_content, profile_data, cookie_sub):
+def get_params(page_content, order_no_content, profile_data, cookie_sub, url):
     #Finds the script
     checkout_data = {}
     scriptSoup = bs(page_content, "html.parser")
@@ -126,10 +124,19 @@ def get_params(page_content, profile_data, cookie_sub):
     select_fields = formSoup.find_all('select')
     custom_values, default_values = parse_input_fields(input_fields)
 
+    soup = bs(order_no_content, "html.parser")
+    order_no = soup.find_all("input", id="cardinal_order_no")
+    for number in order_no:
+        profile_data["cardinal_order_no"] = number["value"]
+        checkout_data[number["name"]] = profile_data["cardinal_order_no"]
+
     # Assigns all values like credit card, billing etc
     checkout_data = assign_custom_values(checkout_data, profile_data, custom_values)
     checkout_data = get_default_values(checkout_data, profile_data, default_values, cookie_sub)
     checkout_data = get_select_field_values(checkout_data, profile_data, select_fields)
+
+    checkout_data["hpcvv"] = ""
+    checkout_data["h-captcha-response"] = "" 
 
     if check_data(checkout_data, profile_data):
         return checkout_data
