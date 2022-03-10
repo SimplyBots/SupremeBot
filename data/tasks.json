@@ -1,5 +1,11 @@
 {
     "tasks": [
-        {"item_name":"Supreme®/Nalgene® Characters 32 oz. Bottle", "size":"N/A","colour":"Purple","item_category":"Accessories", "profile_name":"Main"}
+        {
+            "item_name": "Supreme®/Hanes® Boxer Briefs (4 Pack)",
+            "size": "Large",
+            "colour": "White",
+            "item_category": "Accessories",
+            "profile_name": "Main"
+        }
     ]
 }

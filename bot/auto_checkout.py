@@ -16,8 +16,8 @@ def add_to_cart(session, item_id, size_id, style_id, check):
 
     auto_checkout_url = f"https://www.supremenewyork.com/shop/{item_id}/atc.json"
     auto_response = session.post(auto_checkout_url, headers=inject_header(), data=data)
-    print("[+] Added to cart")
-    if auto_response.status_code == 200:
+    if auto_response.status_code == 200: #Also wanna check if the content array within auto_response isnt empty
+        print("[+] Added to cart")
         send_checkout_request(session, inject_data(), inject_header())
 
 def getCSRF():
@@ -60,13 +60,14 @@ def getCaptcha(session, header):
 def send_checkout_request(session, profile, headers):
     checkout_url = "https://www.supremenewyork.com/checkout.json"
     checkout_params = make_checkout_request(session, profile, headers)
-    #captcha = checkout_params["g-recaptcha-response"] = getCaptcha(session, headers)
-    #checkout_request = session.post(checkout_url, headers=headers, data=checkout_params)
-    #print("[+] Sent checkout request")
-    #getThing()
-    #if not checkout_request.json()["status"] == "failed":
-    #    print("[+] Success!")
-    #    display_order_status(session, checkout_request, headers)
+    checkout_request = session.post(checkout_url, headers=headers, data=checkout_params)
+    print("[+] Sent checkout request")
+    if not checkout_request.json()['status'] == 'failed':
+        print("[+] Success!")
+    else:
+        print("[-] Failed!")
+    
+    #    display_order_status(session, checkout_request)
     #else:
     #    print("[+] Failed to checkout, restart the job", "red")
 

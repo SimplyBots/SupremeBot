@@ -8,26 +8,35 @@ def init():
     global listOfCountries
     global cardTypeList
     global userLabelsList
+    global taskLabelData
+    global taskLabelList
 
     userProfilesList = []
     userTasksList = []
     userLabelsList = []
+    taskLabelList = []
     cardTypeList = [
         "MASTER",
         "VISA"
     ]
+    taskLabelData = [
+        ["Item Name: ", 0.25, 0.25, "center"],
+        ["Item Category: ", 0.25, 0.40, "center"],
+        ["Item Colour: ", 0.25, 0.55, "center"],
+        ["Item Size: ", 0.25, 0.70, "center"]
+    ]
     profileLabelNameList = [
-        ["Full Name: ", 0.25, 0.10, "center"],
-        ["Email Address: ", 0.25, 0.15, "center"],
-        ["Address 1:", 0.25, 0.20, "center"],
-        ["Country: ", 0.25, 0.25, "center"],
-        ["Phone Number: ", 0.25, 0.30, "center"],
-        ["City: ", 0.25, 0.35, "center"],
-        ["Postcode: ", 0.25, 0.40, "center"],
-        ["Card Type: ", 0.25, 0.45, "center"],
-        ["Card Number: ", 0.25, 0.50, "center"],
-        ["Expire Date: ", 0.25, 0.55, "center"],
-        ["Card Security Number: ", 0.25, 0.60, "center"],
+        ["Full Name: ", 0.25, 0.15, "center"],
+        ["Email Address: ", 0.25, 0.20, "center"],
+        ["Address 1:", 0.25, 0.25, "center"],
+        ["Country: ", 0.25, 0.35, "center"],
+        ["Phone Number: ", 0.25, 0.45, "center"],
+        ["City: ", 0.25, 0.50, "center"],
+        ["Postcode: ", 0.25, 0.55, "center"],
+        ["Card Type: ", 0.25, 0.65, "center"],
+        ["Card Number: ", 0.25, 0.75, "center"],
+        ["Expire Date: ", 0.25, 0.80, "center"],
+        ["Card Security Number: ", 0.25, 0.85, "center"],
     ]
     listOfCountries = [
         "AUSTRIA",
