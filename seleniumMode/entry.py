@@ -25,6 +25,3 @@ def openSupreme():
 
     submit_element = browser.find_element_by_name("commit")
     ActionChains(browser).click(submit_element).perform()
-
-    while True:
-        print("")

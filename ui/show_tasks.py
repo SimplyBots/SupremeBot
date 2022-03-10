@@ -1,9 +1,12 @@
 
 import json
 import tkinter as tk
+from bot.look_for_stock import get_stock
 import settings
 
 from tkinter.ttk import Treeview
+
+from multiprocessing.dummy import Pool as ThreadPool
 
 class ShowTasks(tk.Toplevel):
     def __init__(self, parent):
@@ -105,7 +108,23 @@ class ShowTasks(tk.Toplevel):
     def updateButtonText(self):
         if self.start_tasks_button['text'] == 'Run Tasks':
             self.start_tasks_button['text'] = 'Stop Tasks'
-            print('Get Stock Called Here')
+            self.inject_tasks()
         else:
             self.start_tasks_button['text'] = 'Run Tasks'
             print('Stop Running Tasks')
+        
+    def inject_tasks(self):
+        pool1 = ThreadPool(4)
+
+        tasksCreated = []
+        tasks = open("data/tasks.json", encoding='utf-8')
+        data = json.load(tasks)
+        for item in data["tasks"]:
+            task = [item["item_category"], item["item_name"], item["colour"], item["size"]]
+            tasksCreated.append(task)
+        tasks.close()
+
+        pool1.starmap(get_stock, tasksCreated)
+
+        pool1.close()
+        pool1.join()

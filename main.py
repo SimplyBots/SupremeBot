@@ -2,10 +2,7 @@ import os.path
 import settings
 
 from ui.core import Core
-from bot.main import SupremeBot
-from bot.look_for_stock import get_stock
 from authentification import getHardwareID
-from seleniumMode.entry import openSupreme
 
 def main():
     """
@@ -26,9 +23,6 @@ def main():
     
     if (getHardwareID() == Aidan_hwid or getHardwareID() == Michael_hwid):
         coreUIPage.mainloop()
-        # openSupreme() Commenting This out for now as its breaking my UI stuff
-
-        # get_stock()
     else:
         print('Error')
         coreUIPage.errorMessage()
