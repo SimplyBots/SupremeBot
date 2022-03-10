@@ -1,7 +1,11 @@
 {
     "tasks": [
-        {"item_name":"Supreme®/Nalgene® Characters 32 oz. Bottle", "size":"N/A","colour":"Purple","item_category":"Accessories", "profile_name":"Main"},
-        {"item_name":"Deer Tee", "size":"Medium","colour":"Light Pine","item_category":"T-Shirts", "profile_name":"Main"},
-        {"item_name":"2-Tone Box Logo New Era®", "size":"7 1/4","colour":"Green","item_category":"Hats", "profile_name":"Main"}
+        {
+            "item_name": "Supreme®/Hanes® Boxer Briefs (4 Pack)",
+            "size": "Large",
+            "colour": "White",
+            "item_category": "Accessories",
+            "profile_name": "Main"
+        }
     ]
 }

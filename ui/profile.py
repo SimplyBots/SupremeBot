@@ -15,7 +15,7 @@ class Profile(tk.Toplevel):
 
     def initialiseView(self, parent):
         width = 600
-        height = 750
+        height = 700
 
         screenWidth = self.winfo_screenwidth()
         screenHeight = self.winfo_screenheight()
@@ -31,7 +31,7 @@ class Profile(tk.Toplevel):
         self.focus_force()  # Force dialog to retain any focus
         self.grab_set() # Prevent access to main window
 
-        self.title("A Simple Supreme Bot - Create Profile")
+        self.title("SimplyBots (Supreme Bot) - Create Profile")
 
         image_url = settings.setWindowIcon()
         self.iconbitmap(image_url)
@@ -62,7 +62,7 @@ class Profile(tk.Toplevel):
         self.profile_card_security_number_input = tk.Entry(self, textvariable=self.profile_card_security_number)
     
     def setUpHeader(self):
-        main_header = tk.Label(self, text='A Simple Supreme Bot - Profile Page', background='#e03533', foreground='white')
+        main_header = tk.Label(self, text='SimplyBots (Supreme Bot) - Profile Page', background='#e03533', foreground='white')
         main_header.grid(row=1, sticky="w")
         main_header.place(relx=0.5, rely=0.05, anchor='center')
         main_header.configure(font=("Arial", 16), width=600)
@@ -129,27 +129,27 @@ class Profile(tk.Toplevel):
         self.profile_card_security_number_input.configure(font=('Arial', 12), background='#FF4A4A', foreground='white')
 
     def placeInputs(self):
-        self.profile_name_input.place(relx=0.75, rely=0.10, anchor='center')
-        self.profile_email_input.place(relx=0.75, rely=0.15, anchor='center')
-        self.profile_address1_input.place(relx=0.75, rely=0.20, anchor='center')
-        self.profile_country_dropdown.place(relx=0.75, rely=0.25, anchor='center')
-        self.profile_phone_number_input.place(relx=0.75, rely=0.30, anchor='center')
-        self.profile_city_input.place(relx=0.75, rely=0.35, anchor='center')
-        self.profile_postcode_input.place(relx=0.75, rely=0.40, anchor='center')
-        self.profile_card_type_dropdown.place(relx=0.75, rely=0.45, anchor='center')
-        self.profile_card_number_input.place(relx=0.75, rely=0.50, anchor='center')
-        self.profile_card_expire_date_input.place(relx=0.75, rely=0.55, anchor='center')
-        self.profile_card_security_number_input.place(relx=0.75, rely=0.60, anchor='center')
+        self.profile_name_input.place(relx=0.75, rely=0.15, anchor='center')
+        self.profile_email_input.place(relx=0.75, rely=0.20, anchor='center')
+        self.profile_address1_input.place(relx=0.75, rely=0.25, anchor='center')
+        self.profile_country_dropdown.place(relx=0.75, rely=0.35, anchor='center')
+        self.profile_phone_number_input.place(relx=0.75, rely=0.45, anchor='center')
+        self.profile_city_input.place(relx=0.75, rely=0.50, anchor='center')
+        self.profile_postcode_input.place(relx=0.75, rely=0.55, anchor='center')
+        self.profile_card_type_dropdown.place(relx=0.75, rely=0.65, anchor='center')
+        self.profile_card_number_input.place(relx=0.75, rely=0.75, anchor='center')
+        self.profile_card_expire_date_input.place(relx=0.75, rely=0.80, anchor='center')
+        self.profile_card_security_number_input.place(relx=0.75, rely=0.85, anchor='center')
     
     def setUpButtons(self):
         self.add_new_profile_button = tk.Button(self, text='Add New Profile', background='#e03533', foreground='white', command=self.createNewProfile)
         self.add_new_profile_button.grid(columnspan=2, sticky='w')
-        self.add_new_profile_button.place(relx=0.25, rely=0.7, anchor='center')
+        self.add_new_profile_button.place(relx=0.25, rely=0.95, anchor='center')
         self.add_new_profile_button.config(font=("Arial", 12), height=2, width=15)
 
         self.cancel_add_profile_button = tk.Button(self, text='Cancel', background='#e03533', foreground='white', command=self.destroy)
         self.cancel_add_profile_button.grid(columnspan=2, sticky='w')
-        self.cancel_add_profile_button.place(relx=0.75, rely=0.7, anchor='center')
+        self.cancel_add_profile_button.place(relx=0.75, rely=0.95, anchor='center')
         self.cancel_add_profile_button.config(font=("Arial", 12), height=2, width=15)
 
     def createNewProfile(self):
